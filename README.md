@@ -10,8 +10,9 @@
 [![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-d97757?style=for-the-badge)](skill/SKILL.md)
 [![Blender 5.2](https://img.shields.io/badge/Blender-5.2-e87d0d?style=for-the-badge&logo=blender&logoColor=white)](https://www.blender.org/download/)
 [![Instagram](https://img.shields.io/badge/Follow-@beta__versionhq-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/beta_versionhq/)
+[![YouTube](https://img.shields.io/badge/Subscribe-@BetaVersion__HQ-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@BetaVersion_HQ)
 
-### **📣 Like it? [Follow @beta_versionhq on Instagram](https://www.instagram.com/beta_versionhq/) for new tools, updates and behind-the-scenes.**
+### **📣 Like it? Follow [@beta_versionhq on Instagram](https://www.instagram.com/beta_versionhq/) and subscribe on [YouTube @BetaVersion_HQ](https://www.youtube.com/@BetaVersion_HQ) for new tools, updates and behind-the-scenes.**
 
 </div>
 
@@ -19,13 +20,9 @@
 
 ## 🎬 See it in action
 
-<div align="center">
+https://github.com/user-attachments/assets/b8a61620-e614-4b59-8725-f3aa0fce79f1
 
-<a href="docs/showcase.mp4"><img src="docs/showcase.gif" alt="10-second test clip" width="300"></a>
-
-<sub>The 10-second test clip, rendered by the kit straight from <code>kit/projects/test10/shots.py</code>. Click for the full-quality mp4 with sound.</sub>
-
-</div>
+<div align="center"><sub>Every clip above was made with the Blender pipeline this kit comes from.</sub></div>
 
 ---
 
@@ -129,7 +126,9 @@ python kit/run.py kit/projects/<name> render post   # full render and the mp4
 
 <div align="center">
 
-Made by **[Beta Version](https://www.instagram.com/beta_versionhq/)**. Stuck, or something broke? DM me on Instagram.
+Made by **Beta Version** · [Instagram](https://www.instagram.com/beta_versionhq/) · [YouTube](https://www.youtube.com/@BetaVersion_HQ)
+
+Stuck, or something broke? DM me on Instagram.
 
 <sub>Not affiliated with Roblox Corporation. The characters are original, code-built blocky figures.</sub>
 
