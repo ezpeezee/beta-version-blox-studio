@@ -1,0 +1,8 @@
+_dev/
+.venv/
+__pycache__/
+kit/config.json
+kit/projects/*/*
+!kit/projects/*/shots.py
+*.blend
+*.blend1

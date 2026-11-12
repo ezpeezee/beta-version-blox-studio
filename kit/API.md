@@ -1,0 +1,61 @@
+# Shot list API (`shots.py` -> `timed.json`)
+
+`shots.py` writes `timed.json` next to it. Copy `projects/test10` to start a new short. All times are seconds.
+
+## Top level
+| Key | Meaning |
+|---|---|
+| `dur` | length of the video (s) |
+| `cast` | `{name: look}` (below) |
+| `shots` | list of shots, back to back (`t0` of one = `t1` of the one before) |
+| `music` | `[[fraction_of_video, mood], ...]`: `playful`, `suspense`, `dark`, ... the coded music bed changes there |
+| `keys` | words that get a stronger caption pop |
+
+## Cast look
+`skin`, `shirt`, `pants`, `shoes`, `hair_color`, `cap_color`, `tie_color`, `apron_color`: RGB 0-1.
+`hair`: short, curly, spiky, cap, long, pigtails, bald, bun, grey_old. `height`: 1.0 adult, about 0.8 kid.
+`extras`: glasses, collar, tie, pocket, apron, cardigan. `sleeves`: short or long.
+
+## Shot
+| Key | Meaning |
+|---|---|
+| `t0`, `t1` | start and end in the video |
+| `text` | caption line for this shot (words in brackets are not captioned) |
+| `set` | `Street` or `Kitchen` |
+| `cam` | `ews` `ws` `mls` `ms` `two` `mcu` `cu` `ecu` `ots` `low` `worm` `ground` `high` `top` `pov` `ins` |
+| `subject` | who the camera frames |
+| `mood` | `sunny`, `storm`, `night` (light, sky, fog) |
+| `move` | `creep` (slow push), `push`, `reveal_push`, `crash_in`, `drift`, `lock` |
+| `side` | 1 or -1: which side of the subject the camera stands |
+| `aimUp` | true: frame higher (clouds above heads) |
+| `flash`, `impact` | lightning flash and camera kick at `impact` s into the shot |
+| `focus` | a set anchor name for the camera to aim at instead of the subject |
+
+## Actor (inside `actors`)
+| Key | Meaning |
+|---|---|
+| `who` | a cast name |
+| `at` | `[x, y]` on the set floor; the camera side is -y. Keep people 2.5+ apart |
+| `walkTo` | `[x, y]`: walks there during the shot (feet locked to the floor, no sliding) |
+| `yaw` | facing in degrees: 0 faces the camera side (-y), 90 faces +x, -90 faces -x |
+| `anim` | idle, talk, walk, run, point, shrug, shock, scared, cheer, eat, cross_arms, think, sad, angry, wave, sit, facepalm |
+| `animAt` | `[[t, anim], ...]` switch the animation at shot time t |
+| `face` | neutral, smile, grin, laugh, shock, scared, sad, worried, angry, smug, think, blink |
+| `faceAt` | `[[t, face], ...]` |
+| `talk` | `[t_start, t_end]` mouth moves (follows the words in `words.json`) |
+| `look` | `[x, y]` eye direction, -1..1 |
+| `fx` | `['name@t', ...]`: `drizzle`, `raincloud`, `storm`, `bigstorm` (a cloud above the head that rains), `bolt`, `smoke`, `crumbs`. `@-1` = already there when the shot starts |
+
+## Voice
+The `voice` step (Kokoro TTS) speaks each shot's `text` and writes `vo.wav` + `words.json`. A shot shorter than its line
+is stretched and later shots move along, so shot times can be rough.
+
+| Key | Where | Meaning |
+|---|---|---|
+| `voice` | top level | Kokoro voice, default `af_heart`. American: af_heart af_bella af_nicole am_michael am_fenrir am_puck. British: bf_emma bf_isabella bm_george bm_fable |
+| `voice` | shot | a different voice for this line (one per character, for dialogue) |
+| `voice_speed` | top level | 1.0 normal, 1.1 a bit faster |
+
+Use `talk=[0, 99]` on the speaking actor so the mouth moves for the whole line.
+Your own recording: put `vo.wav` and `words.json` (`[[word, start, end], ...]`) in the project; the voice step keeps them.
+Without Kokoro installed, the video has captions, music and sound effects only.
