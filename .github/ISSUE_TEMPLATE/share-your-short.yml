@@ -1,0 +1,34 @@
+name: Share your short
+description: Show off a short you made with Beta Version Blox Studio.
+title: "[Short] "
+labels: ["showcase"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for sharing! Good ones get featured in the README.
+  - type: input
+    id: link
+    attributes:
+      label: Link to your short
+      description: YouTube, Instagram, TikTok, or anywhere people can watch it.
+      placeholder: https://youtube.com/shorts/...
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea or prompt
+      description: What did you type into Claude Code?
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything you changed or learned?
+      description: New sets, characters, tweaks, problems you hit.
+  - type: checkboxes
+    id: ok
+    attributes:
+      label: Featuring
+      options:
+        - label: It's OK to feature my short (with credit) in this README.

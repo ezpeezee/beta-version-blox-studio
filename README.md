@@ -2,6 +2,8 @@
 
 <img src="docs/banner.png" alt="Beta Version Blox Studio" width="100%">
 
+<img src="docs/hero.gif" alt="Shorts made with Blox Studio" width="100%">
+
 # Beta Version Blox Studio
 
 **Turn an idea, or your own script, into a vertical blocky-3D animated short with Claude Code.**
@@ -93,6 +95,35 @@ A 9:16 video at 30 fps, with sound effects and a music bed made in code.
 
 ---
 
+## 💡 Ideas to try
+
+Paste any of these after `/beta-version-blox-studio` in Claude Code. Every still is from a real short made from an idea like the one under it.
+
+<table>
+<tr><td align="center" valign="top" width="20%"><img src="docs/ideas/01.jpg" width="150" alt="Idea 1"><br><sub><b>1.</b> a town where you shrink every time you say "I can't"</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/02.jpg" width="150" alt="Idea 2"><br><sub><b>2.</b> a town where complaining puts a rain cloud over your head</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/03.jpg" width="150" alt="Idea 3"><br><sub><b>3.</b> a town where whoever laughs last turns into a tiny gold trophy</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/04.jpg" width="150" alt="Idea 4"><br><sub><b>4.</b> a town where anything you drop stops in mid-air forever</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/05.jpg" width="150" alt="Idea 5"><br><sub><b>5.</b> a town where every lie lifts you one foot off the ground</sub></td></tr>
+<tr><td align="center" valign="top" width="20%"><img src="docs/ideas/06.jpg" width="150" alt="Idea 6"><br><sub><b>6.</b> a town where anyone standing at the noon bell turns to stone</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/07.jpg" width="150" alt="Idea 7"><br><sub><b>7.</b> a town where every shout makes your braid a foot longer</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/08.jpg" width="150" alt="Idea 8"><br><sub><b>8.</b> a town where saying the same word at once swaps your clothes</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/09.jpg" width="150" alt="Idea 9"><br><sub><b>9.</b> a town where anything you point at sticks to your finger till sunset</sub></td><td align="center" valign="top" width="20%"><img src="docs/ideas/10.jpg" width="150" alt="Idea 10"><br><sub><b>10.</b> a town where every job you put off floats behind you</sub></td></tr>
+</table>
+
+<details>
+<summary><b>Copy-paste versions</b></summary>
+
+```text
+/beta-version-blox-studio a short about a town where you shrink every time you say "I can't"
+/beta-version-blox-studio a short about a town where complaining puts a rain cloud over your head
+/beta-version-blox-studio a short about a town where whoever laughs last turns into a tiny gold trophy
+/beta-version-blox-studio a short about a town where anything you drop stops in mid-air forever
+/beta-version-blox-studio a short about a town where every lie lifts you one foot off the ground
+/beta-version-blox-studio a short about a town where anyone standing at the noon bell turns to stone
+/beta-version-blox-studio a short about a town where every shout makes your braid a foot longer
+/beta-version-blox-studio a short about a town where saying the same word at once swaps your clothes
+/beta-version-blox-studio a short about a town where anything you point at sticks to your finger till sunset
+/beta-version-blox-studio a short about a town where every job you put off floats behind you
+```
+
+</details>
+
+---
+
 ## 🚀 Quick start
 
 **The easy way:** install [Claude Code](https://claude.com/claude-code), then paste this into it:
@@ -159,6 +190,20 @@ python kit/run.py kit/projects/<name> render post   # full render and the mp4
 | **Hardware** | An NVIDIA GPU is best; a CPU also works, more slowly. About 4 GB RAM per render process |
 
 </details>
+
+---
+
+## 🙌 Made something? Share it
+
+Post your short in **[Show and tell](https://github.com/ezpeezee/beta-version-blox-studio/discussions/categories/show-and-tell)**, or use the **[Share your short](https://github.com/ezpeezee/beta-version-blox-studio/issues/new?template=share-your-short.yml)** form. The best ones get featured here.
+
+Add this badge to your video description or your own repo:
+
+[![Made with Beta Version Blox Studio](https://img.shields.io/badge/Made%20with-Beta%20Version%20Blox%20Studio-3ad6f0?style=for-the-badge)](https://github.com/ezpeezee/beta-version-blox-studio)
+
+```markdown
+[![Made with Beta Version Blox Studio](https://img.shields.io/badge/Made%20with-Beta%20Version%20Blox%20Studio-3ad6f0?style=for-the-badge)](https://github.com/ezpeezee/beta-version-blox-studio)
+```
 
 ---
 
