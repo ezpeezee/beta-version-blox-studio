@@ -7,7 +7,8 @@
 Stages: shots voice compile stills render post
   shots    runs <project>/shots.py, which writes timed.json (and placeholder word times)
   voice    Kokoro TTS reads each shot's text -> vo.wav + words.json, and stretches shots to fit the voice
-           (skipped when you brought your own vo.wav + words.json, or Kokoro isn't installed)
+           (installs Kokoro into this Python the first time if it's missing; skipped when you brought your own
+           vo.wav + words.json, or with BLOX_NO_VOICE=1)
   compile  Blender builds the scene, keys every frame and checks that no two characters overlap
   stills   one draft frame per shot -> <project>/stills_sheet.jpg (check the look before the full render)
   render   all frames, on several Blender processes at once (count picked from free RAM)
@@ -49,6 +50,30 @@ def free_gb():
     except Exception: return 8.0
 
 
+def has_voice():
+    import importlib, importlib.util
+    importlib.invalidate_caches()
+    try: return all(importlib.util.find_spec(m) is not None for m in ('kokoro', 'soundfile'))
+    except Exception: return False
+
+
+def ensure_voice():
+    """Kokoro reads the lines aloud. If it's missing, install it once into this same Python (about 2 GB, CPU is fine)."""
+    if has_voice(): return True
+    req = os.path.join(KIT, 'requirements-voice.txt')
+    if os.environ.get('BLOX_NO_VOICE') == '1':
+        print('   BLOX_NO_VOICE=1: no voice, captions and music only'); return False
+    print('   Voice (Kokoro TTS) is not installed in this Python. Installing it now, one time only (about 2 GB)...', flush=True)
+    r = subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', req])
+    if r.returncode == 0 and has_voice():
+        print('   Voice installed.'); return True
+    bar = '!' * 78
+    print(f'\n{bar}\n  NO VOICE: Kokoro could not be installed, so this video will have captions and music only.\n'
+          f'  Fix it, then run the voice step again:\n    "{sys.executable}" -m pip install -r "{req}"\n'
+          f'  (set BLOX_NO_VOICE=1 to skip the voice on purpose)\n{bar}\n', flush=True)
+    return False
+
+
 def procs(): return max(1, min(MAX_PROCS, int((free_gb() - 2) // PER_PROC_GB), os.cpu_count() // 2))
 
 
@@ -81,14 +106,10 @@ class Project:
 
     def voice(s):
         if s.own_voice(): print('   your own vo.wav + words.json: kept'); return
-        try:
-            import importlib.util
-            ok = importlib.util.find_spec('kokoro') is not None
-        except Exception: ok = False
-        if not ok:
+        if not ensure_voice():
             for f in ('vo.wav', '.voice_kokoro'):
                 if os.path.exists(s.p(f)): os.remove(s.p(f))
-            print('   Kokoro not installed: no voice (pip install -r kit/requirements-voice.txt)'); return
+            return
         sh([sys.executable, os.path.join(BLOX, 'voice.py'), s.d], log=s.p('voice.log'))
         print('  ', open(s.p('voice.log'), encoding='utf8').read().strip().splitlines()[-1])
 
@@ -120,6 +141,8 @@ class Project:
     def post(s):
         sh([sys.executable, os.path.join(BLOX, 'post.py'), s.d], log=s.p('post.log'))
         print('   ->', s.p('out', s.name + '.mp4'))
+        if not os.path.exists(s.p('vo.wav')):
+            print('   NOTE: no vo.wav, so this video has no voice. Run the voice step (it installs Kokoro), then compile, render, post.')
 
 
 if __name__ == '__main__':

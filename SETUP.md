@@ -26,21 +26,17 @@ git clone https://github.com/ezpeezee/beta-version-blox-studio
 cd beta-version-blox-studio
 ```
 
-## 3. Python packages
+## 3. Python packages (voice included)
 
 ```bash
 python -m venv .venv
-.venv\Scripts\pip install -r kit\requirements.txt
+.venv\Scripts\pip install -r kit\requirements.txt -r kit\requirements-voice.txt
 ```
 
-Voice (Kokoro TTS, reads the script aloud; about 2 GB with PyTorch, works on CPU):
+The second file is the voice (Kokoro TTS, reads the script aloud; about 2 GB with PyTorch, works on CPU). Without it the
+video has no voice. If you forget it, `run.py` installs it into the same Python the first time the voice step runs.
 
-```bash
-.venv\Scripts\pip install -r kit\requirements-voice.txt
-```
-
-Optional: install [eSpeak NG](https://github.com/espeak-ng/espeak-ng/releases) so unusual words and names are pronounced
-better. Skip the voice packages and videos still render, with captions and music only.
+Optional: install eSpeak NG (`winget install espeak-ng.espeak-ng`) so unusual words and names are pronounced better.
 
 Run the kit with `.venv\Scripts\python` (or activate the venv first).
 
@@ -66,6 +62,10 @@ Copy `skill/` to `%USERPROFILE%\.claude\skills\beta-version-blox-studio\`.
 
 It builds the street, two characters and five shots, reads the lines aloud, renders about 300 frames and writes
 `kit/projects/test10/out/test10.mp4` (10 s, 1080x1920, 30 fps). About 3-5 minutes with an NVIDIA GPU.
+
+Check that it worked: the voice step prints the voice it used (not "NO VOICE"), and the mp4 has sound:
+`ffprobe -v error -select_streams a -show_entries stream=codec_name kit\projects\test10\out\test10.mp4` prints an audio codec.
+If there is no voice, run `.venv\Scripts\python -m pip install -r kit\requirements-voice.txt` and run the test again.
 
 Then, in Claude Code inside the repo folder:
 

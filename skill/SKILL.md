@@ -20,8 +20,9 @@ The kit lives in the cloned repo (`<repo>/kit`). If you can't find it, ask the u
    (e.g. `am_michael`, `af_heart`, `bm_george`; a shot's own `voice` overrides it, so characters can sound different).
    Give talking characters `talk=[0, 99]` so the mouth moves for the whole line.
    If the user brings a recording instead, save it as `<project>/vo.wav` with `<project>/words.json`
-   (`[[word, start_s, end_s], ...]`, e.g. from faster-whisper) and the voice step keeps it. If Kokoro isn't installed,
-   the video has captions and music only: tell the user to run `pip install -r kit/requirements-voice.txt`.
+   (`[[word, start_s, end_s], ...]`, e.g. from faster-whisper) and the voice step keeps it. If Kokoro is missing, `run.py`
+   installs it into the same Python on the first voice step (about 2 GB). If that fails it prints NO VOICE: fix it with
+   `<the kit's python> -m pip install -r kit/requirements-voice.txt` before rendering, never ship a short without a voice.
 3. **Shots.** Copy `kit/projects/test10` to `kit/projects/<name>` and rewrite its `shots.py`: the cast, then one `S(...)` per
    caption line. Every key is in `kit/API.md`. Rules that keep it watchable:
    - Cut every 1-2.5 s. Vary the camera (`ews` to open, `mcu`/`cu` for lines, `two` for exchanges, `ws` for payoffs).
