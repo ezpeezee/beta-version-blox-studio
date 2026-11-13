@@ -11,6 +11,8 @@
 [![Blender 5.2](https://img.shields.io/badge/Blender-5.2-e87d0d?style=for-the-badge&logo=blender&logoColor=white)](https://www.blender.org/download/)
 [![Instagram](https://img.shields.io/badge/Follow-@beta__versionhq-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/beta_versionhq/)
 [![YouTube](https://img.shields.io/badge/Subscribe-@BetaVersion__HQ-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@BetaVersion_HQ)
+[![GitHub stars](https://img.shields.io/github/stars/ezpeezee/beta-version-blox-studio?style=for-the-badge&logo=github&color=f5c518)](https://github.com/ezpeezee/beta-version-blox-studio/stargazers)
+[![Latest release](https://img.shields.io/github/v/release/ezpeezee/beta-version-blox-studio?style=for-the-badge&color=22c55e)](https://github.com/ezpeezee/beta-version-blox-studio/releases/latest)
 
 ### **📣 Like it? Follow [@beta_versionhq on Instagram](https://www.instagram.com/beta_versionhq/) and subscribe on [YouTube @BetaVersion_HQ](https://www.youtube.com/@BetaVersion_HQ) for new tools, updates and behind-the-scenes.**
 
@@ -23,6 +25,8 @@
 https://github.com/user-attachments/assets/b8a61620-e614-4b59-8725-f3aa0fce79f1
 
 <div align="center"><sub>Every clip above was made with the Blender pipeline this kit comes from.</sub></div>
+
+<p align="center"><img src="docs/gallery.png" alt="Stills from shorts made with Blox Studio" width="100%"></p>
 
 ---
 
@@ -100,7 +104,8 @@ Set up github.com/ezpeezee/beta-version-blox-studio on my PC, and run its test.
 It clones the repo, follows [SETUP.md](SETUP.md), checks your tools (and gives you the install command for anything missing),
 makes the Python environment and renders the 10-second test clip.
 
-**By hand:**
+<details>
+<summary><b>Prefer to set it up by hand? Click here.</b></summary>
 
 ```text
 1. Install Blender 5.2, Python 3.11+, ffmpeg and Claude Code
@@ -112,7 +117,21 @@ makes the Python environment and renders the 10-second test clip.
    /beta-version-blox-studio a short video about a kid who can't stop sneezing
 ```
 
+</details>
+
 ## 🛠️ How it works
+
+```mermaid
+flowchart LR
+    A["💡 Idea or script"] --> B["🗣️ Voice"]
+    B --> C["🎬 Shots"]
+    C --> D["🖼️ Look stills"]
+    D --> E["🧱 Blender render"]
+    E --> F["📱 9:16 mp4"]
+```
+
+<details>
+<summary><b>What happens at each step</b></summary>
 
 | Step | What happens |
 |---|---|
@@ -128,13 +147,29 @@ python kit/run.py kit/projects/<name>               # shots, compile, stills
 python kit/run.py kit/projects/<name> render post   # full render and the mp4
 ```
 
-## 💻 Requirements
+</details>
+
+<details>
+<summary><b>💻 Requirements</b></summary>
 
 | | |
 |---|---|
 | **OS** | Windows 10/11 (Linux and macOS work with the Blender path set) |
 | **Software** | Blender 5.2, Python 3.11+, ffmpeg, Claude Code |
 | **Hardware** | An NVIDIA GPU is best; a CPU also works, more slowly. About 4 GB RAM per render process |
+
+</details>
+
+---
+
+## 🧰 Also from Beta Version
+
+<table>
+<tr>
+<td width="140"><a href="https://github.com/ezpeezee/beta-version-toon-studio"><img src="https://raw.githubusercontent.com/ezpeezee/beta-version-toon-studio/main/docs/banner.png" width="140" alt="Toon Studio"></a></td>
+<td><b><a href="https://github.com/ezpeezee/beta-version-toon-studio">Beta Version Toon Studio</a></b><br>The same idea-to-short kit with flat, hand-drawn-style cartoon characters in painted 3D worlds.</td>
+</tr>
+</table>
 
 ---
 
