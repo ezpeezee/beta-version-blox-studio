@@ -28,7 +28,8 @@ The kit lives in the cloned repo (`<repo>/kit`). If you can't find it, ask the u
    - Cut every 1-2.5 s. Vary the camera (`ews` to open, `mcu`/`cu` for lines, `two` for exchanges, `ws` for payoffs).
    - Each shot's `text` is the caption shown; with a voice, shots follow the word times.
    - Keep characters 2.5+ apart; `walkTo` for entrances; face the camera side (`yaw` -60..60) when they talk.
-   - Use `fx` (rain clouds, storm, bolt, smoke) and `faceAt`/`animAt` for the reaction beats.
+   - Act reactions with `faceAt`/`animAt`. Use `fx` (rain cloud, storm, bolt, smoke) only when the story itself has
+     that moment (bad luck, a shock, a burn); never by default, and never in a story that doesn't mention it.
 4. **Look first.** `python kit/run.py kit/projects/<name>` runs shots, voice, compile and stills. Open `stills_sheet.jpg` and check
    every shot: subject in frame, faces visible, nobody blocking, nothing inside a wall. `compile.log` prints `clash frames`;
    0 is the goal (characters overlapping). Fix `shots.py` and rerun until it is clean.
