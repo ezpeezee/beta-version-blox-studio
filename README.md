@@ -26,6 +26,20 @@ https://github.com/user-attachments/assets/b8a61620-e614-4b59-8725-f3aa0fce79f1
 
 ---
 
+## 📺 Watch the full walkthrough
+
+<div align="center">
+
+<a href="https://youtu.be/qy-y6BFmXV0" title="Make Viral Roblox Animations with AI FREE | Free and Unlimited | Claude SKILL">
+  <img src="https://img.youtube.com/vi/qy-y6BFmXV0/maxresdefault.jpg" alt="Watch the Blox Studio walkthrough on YouTube" width="85%">
+</a>
+
+**▶️ [Make Viral Roblox Animations FREE | Claude SKILL](https://youtu.be/qy-y6BFmXV0)**: setup and a full short, start to finish.
+
+</div>
+
+---
+
 ## ✨ What you get
 
 <table>
