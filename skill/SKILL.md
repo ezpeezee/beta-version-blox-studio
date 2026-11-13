@@ -23,17 +23,23 @@ The kit lives in the cloned repo (`<repo>/kit`). If you can't find it, ask the u
    (`[[word, start_s, end_s], ...]`, e.g. from faster-whisper) and the voice step keeps it. If Kokoro is missing, `run.py`
    installs it into the same Python on the first voice step (about 2 GB). If that fails it prints NO VOICE: fix it with
    `<the kit's python> -m pip install -r kit/requirements-voice.txt` before rendering, never ship a short without a voice.
-3. **Shots.** Copy `kit/projects/test10` to `kit/projects/<name>` and rewrite its `shots.py`: the cast, then one `S(...)` per
+3. **World.** List every location the script names or implies, and give each its own place; the world comes from
+   the story, so two shorts should never look the same. Use a ready place or preset when it really is that location
+   (`Gym`, `TownPool`, `Classroom`, `Bedroom`, ... in `kit/API.md`, **Places**); otherwise write a spec under `places`
+   in `shots.py`: walls, floor, light and the props the story needs (a story about doors gets a hall of doors; a
+   bakery gets a counter, shelves and a cooler). Change colours and props even on a preset so it fits this story.
+   Furniture stays out of the actors' clear zone. The intro shot is in the story's first place, never a default.
+4. **Shots.** Copy `kit/projects/test10` to `kit/projects/<name>` and rewrite its `shots.py`: the cast, then one `S(...)` per
    caption line. Every key is in `kit/API.md`. Rules that keep it watchable:
    - Cut every 1-2.5 s. Vary the camera (`ews` to open, `mcu`/`cu` for lines, `two` for exchanges, `ws` for payoffs).
    - Each shot's `text` is the caption shown; with a voice, shots follow the word times.
    - Keep characters 2.5+ apart; `walkTo` for entrances; face the camera side (`yaw` -60..60) when they talk.
    - Act reactions with `faceAt`/`animAt`. Use `fx` (rain cloud, storm, bolt, smoke) only when the story itself has
      that moment (bad luck, a shock, a burn); never by default, and never in a story that doesn't mention it.
-4. **Look first.** `python kit/run.py kit/projects/<name>` runs shots, voice, compile and stills. Open `stills_sheet.jpg` and check
-   every shot: subject in frame, faces visible, nobody blocking, nothing inside a wall. `compile.log` prints `clash frames`;
+5. **Look first.** `python kit/run.py kit/projects/<name>` runs shots, voice, compile and stills. Open `stills_sheet.jpg` and check
+   every shot: the place reads as the story's location, subject in frame, faces visible, nobody blocking, nothing inside a wall. `compile.log` prints `clash frames`;
    0 is the goal (characters overlapping). Fix `shots.py` and rerun until it is clean.
-5. **Render and finish.** `python kit/run.py kit/projects/<name> render post` -> `kit/projects/<name>/out/<name>.mp4`.
+6. **Render and finish.** `python kit/run.py kit/projects/<name> render post` -> `kit/projects/<name>/out/<name>.mp4`.
    Watch the start, middle and end, then give the user the path and a one-line caption for posting.
 
 ## Speed

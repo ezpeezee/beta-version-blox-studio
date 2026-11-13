@@ -66,8 +66,8 @@ Built entirely in code: walk, talk, point, cheer, panic, with 12 faces and lip-s
 <tr>
 <td valign="top">
 
-### 🏙️ Ready-made sets
-A city street and a kitchen, built from code with free CC0 textures, plus sunny, storm and night lighting.
+### 🏙️ Worlds from your story
+Every short gets its own places, built from its script: a street, kitchen, gym, music shop and town pool, ten presets (bedroom, classroom, store, park and more), or any place Claude writes from 50+ code-built props. Free CC0 textures, sunny, storm and night lighting. New places land in the kit regularly.
 
 </td>
 <td valign="top">

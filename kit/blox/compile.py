@@ -14,7 +14,11 @@ EP = os.path.abspath(argv[0])
 SPEC = json.load(open(os.path.join(EP, 'timed.json'), encoding='utf8'))
 WORDS = json.load(open(os.path.join(EP, 'words.json'), encoding='utf8'))
 FPS = 30; N = int(math.ceil(SPEC['dur'] * FPS))
-ORIG = {'Street': Vector((0, 0, 0)), 'Kitchen': Vector((400, 0, 0))}
+PLACES = SPEC.get('places', {})   # the story's own places (specs, see places.py); built-in names need none
+_used = []
+for _s in SPEC['shots']:
+    if _s['set'] not in _used: _used.append(_s['set'])
+ORIG = {nm: Vector((i * 400, 0, 0)) for i, nm in enumerate(_used)}   # only the places this story uses
 OFF = Vector((0, 0, -2000))  # parked actors
 H = chars.HEAD_C[2] if hasattr(chars, 'HEAD_C') else 4.5  # real R6 head centre at scale 1
 
@@ -28,7 +32,7 @@ for o in list(bpy.data.objects): bpy.data.objects.remove(o, do_unlink=True)
 sc = bpy.context.scene
 sets.setup_render(sc)
 sc.render.fps = FPS; sc.frame_start = 0; sc.frame_end = N - 1
-for nm, o in ORIG.items(): sets.build_set(nm, origin=tuple(o))
+for nm, o in ORIG.items(): sets.build_set(nm, origin=tuple(o), spec=PLACES.get(nm))
 
 # ---------- cast ----------
 CAST = {}

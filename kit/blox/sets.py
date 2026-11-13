@@ -1002,15 +1002,30 @@ ANCHORS = {}
 _BUILDERS = {'Street': _street, 'Kitchen': _kitchen}
 
 
-def build_set(name, origin=(0, 0, 0)):
-    if name not in _BUILDERS:
-        raise ValueError(f'unknown set {name}; use {list(_BUILDERS)}')
+def set_names():
+    import places, places_built
+    return list(_BUILDERS) + list(places_built.BUILT) + list(places.PRESETS)
+
+
+def build_set(name, origin=(0, 0, 0), spec=None):
+    """name: a built set (Street, Kitchen, Gym, MusicRow, TownPool), a preset place (places.PRESETS), or any name
+    with spec = a place spec (see places.py) written by the story's shots.py."""
+    import places, places_built
+    if spec is None and name not in _BUILDERS and name not in places_built.BUILT and name not in places.PRESETS:
+        raise ValueError(f'unknown set {name}; use {set_names()} or define it under "places" in shots.py')
     _world()
     _mats()
     coll = bpy.data.collections.new(name)
     bpy.context.scene.collection.children.link(coll)
     b = _B(name, coll, origin)
-    A = _BUILDERS[name](b, coll, origin)
+    if spec is not None:
+        A = places.build(b, coll, origin, name, spec)
+    elif name in _BUILDERS:
+        A = _BUILDERS[name](b, coll, origin)
+    elif name in places_built.BUILT:
+        A = places_built.BUILT[name](b, coll, origin)
+    else:
+        A = places.build(b, coll, origin, name, places.PRESETS[name])
     b.finish()
     for k, v in A.items():
         _anchor(coll, name, k, origin, v)
