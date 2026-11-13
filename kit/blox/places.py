@@ -532,6 +532,54 @@ CATALOG = {
     'wheelie_bin': props.wheelie_bin, 'hydrant': props.hydrant, 'box': props.cardboard_box, 'crate': props.crate,
 }
 
+# ------------------------------------------------------------------ the story's own things (blocky, from parts)
+_TOPS = {}
+SIZES = {}   # (place, anchor) -> height of a story thing, for 'ins' framing
+
+
+def _thing(parts):
+    """A story object made only of chunky parts: block, tube, cone, ball. Coarse on purpose (Roblox parts, not models).
+    part = [shape, colour, size..., [x, y, z]] (+ optional {options}); x/y/z is the part's centre, the prop's front is -y.
+      ['block', '#c83c3c', [w, d, h], [x, y, z]]
+      ['tube',  '#d8d8d8', r, h, [x, y, z]]          upright; {'axis': 'X'} or 'Y' lays it down
+      ['cone',  '#e8e2d6', r, h, [x, y, z]]          point up; {'r2': 0.3} for a cut cone; {'flip': True} points down
+      ['ball',  '#5f9a3c', r, [x, y, z]]             {'scale': [1, 1, 0.6]} to squash it
+    options on any part: 'glow': 0..5 (lights up), 'metal': true, 'tilt': [rx, ry, rz] degrees,
+    'main': true (a prop's {'color': ...} option recolours this part)."""
+    def build(coll, name, loc, rotz=0.0, s=1.0, color=None):
+        p = Prop(coll, name, loc, rotz, bev=0.06 * s)
+        for it in parts:
+            it = list(it)
+            o = it.pop() if isinstance(it[-1], dict) else {}
+            shape, col = it[0], (color if color and o.get('main') else _hex(it[1], '#a0a0a0'))
+            c = Vector(it[-1]) * s
+            gl = float(o.get('glow', 0)); mt = bool(o.get('metal'))
+            m = _m(f'thing{col}{gl}{mt}', col, rough=0.35 if mt else 0.8, metal=0.8 if mt else 0.0,
+                   emit=gl, emit_col=col if gl else None, var=0.1)
+            rot = tuple(math.radians(a) for a in o['tilt']) if o.get('tilt') else None
+            if shape == 'block':
+                p.box(m, tuple(v * s for v in it[2]), c, rot=rot or (0, 0, 0))
+            elif shape in ('tube', 'cone'):
+                r, h = it[2] * s, it[3] * s
+                r2 = o['r2'] * s if 'r2' in o else (r if shape == 'tube' else 0.0)
+                if o.get('flip'): r, r2 = r2, r
+                p.cyl(m, r, h, c, axis=o.get('axis', 'Z'), seg=10, r2=r2, rot=rot)
+            elif shape == 'ball':
+                p.ball(m, it[2] * s, c, scale=tuple(o.get('scale', (1, 1, 1))), sub=1)
+            else:
+                print(f'[things] {name}: unknown part {shape!r} (block, tube, cone, ball)')
+        return p.finish()
+    return build
+
+
+def register_things(things):
+    """Add the story's own things (timed.json 'things': {name: [parts]}) to the prop catalogue."""
+    for nm, parts in (things or {}).items():
+        CATALOG[nm] = _thing(parts)
+        tops = [pt[-2][2] if isinstance(pt[-1], dict) else pt[-1][2] for pt in parts if len(pt) >= 3]
+        _TOPS[nm] = (max(tops) if tops else 2.0) + 0.5
+
+
 # rough footprints (half width x, half depth y) before yaw, for the clear-zone warning
 _FOOT = {'bed': (2.7, 4.4), 'bunk_bed': (2.7, 4.4), 'desk': (2.6, 1.2), 'sofa': (3.5, 1.5), 'armchair': (1.7, 1.5),
          'wardrobe': (2.4, 1.2), 'bookshelf': (2.2, 0.8), 'tv': (3.5, 1.0), 'counter': (4.0, 1.5),
@@ -604,8 +652,11 @@ def _props(coll, name, O, spec, A):
             print(f'[places] {name}: {typ} options {opts}: {e}')
             CATALOG[typ](coll, f'{name}.{an}', W + Vector((x, y, 0)), yaw)
         top = {'door': 4.0, 'bed': 2.4, 'desk': 3.4, 'whiteboard': 6.0, 'chalkboard': 6.0, 'poster': 7.0,
-               'picture': 7.5, 'tv': 4.5, 'counter': 3.8, 'swing': 3.0, 'slide': 4.0}.get(typ, 2.6)
-        A[an] = (x, y, top)
+               'picture': 7.5, 'tv': 4.5, 'counter': 3.8, 'swing': 3.0, 'slide': 4.0}.get(typ, _TOPS.get(typ, 2.6))
+        if typ in _TOPS:   # the story's own things: aim at the middle, and let an 'ins' shot frame all of it
+            A[an] = (x, y, top / 2); SIZES[(name, an)] = top
+        else:
+            A[an] = (x, y, top)
 
 
 def room(b, coll, O, name, spec):

@@ -1011,21 +1011,29 @@ def build_set(name, origin=(0, 0, 0), spec=None):
     """name: a built set (Street, Kitchen, Gym, MusicRow, TownPool), a preset place (places.PRESETS), or any name
     with spec = a place spec (see places.py) written by the story's shots.py."""
     import places, places_built
-    if spec is None and name not in _BUILDERS and name not in places_built.BUILT and name not in places.PRESETS:
+    base = spec.get('base') if spec else None   # a ready place or preset, plus the story's extra props
+    if base:
+        if base not in _BUILDERS and base not in places_built.BUILT and base not in places.PRESETS:
+            raise ValueError(f'place {name}: unknown base {base}; use {set_names()}')
+    elif spec is None and name not in _BUILDERS and name not in places_built.BUILT and name not in places.PRESETS:
         raise ValueError(f'unknown set {name}; use {set_names()} or define it under "places" in shots.py')
     _world()
     _mats()
     coll = bpy.data.collections.new(name)
     bpy.context.scene.collection.children.link(coll)
     b = _B(name, coll, origin)
-    if spec is not None:
+    src = base or name
+    if spec is not None and not base:
         A = places.build(b, coll, origin, name, spec)
-    elif name in _BUILDERS:
-        A = _BUILDERS[name](b, coll, origin)
-    elif name in places_built.BUILT:
-        A = places_built.BUILT[name](b, coll, origin)
+    elif src in _BUILDERS:
+        A = _BUILDERS[src](b, coll, origin)
+    elif src in places_built.BUILT:
+        A = places_built.BUILT[src](b, coll, origin)
     else:
-        A = places.build(b, coll, origin, name, places.PRESETS[name])
+        A = places.build(b, coll, origin, name, places.PRESETS[src])
+    if base:
+        A = dict(A)
+        places._props(coll, name, origin, spec, A)
     b.finish()
     for k, v in A.items():
         _anchor(coll, name, k, origin, v)

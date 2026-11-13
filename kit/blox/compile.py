@@ -14,6 +14,8 @@ EP = os.path.abspath(argv[0])
 SPEC = json.load(open(os.path.join(EP, 'timed.json'), encoding='utf8'))
 WORDS = json.load(open(os.path.join(EP, 'words.json'), encoding='utf8'))
 FPS = 30; N = int(math.ceil(SPEC['dur'] * FPS))
+import places as _places
+_places.register_things(SPEC.get('things', {}))   # the story's own blocky objects
 PLACES = SPEC.get('places', {})   # the story's own places (specs, see places.py); built-in names need none
 _used = []
 for _s in SPEC['shots']:
@@ -173,7 +175,8 @@ def solve_cam(s, tl, heads):
     fw, sdeg, edz, eyy, lens, fst, mv0 = CAMS[kind]; side = s.get('side', 1); o = ORIG[s['set']]
     if kind == 'ins' or not heads:
         anc = sets.ANCHORS.get(s['set'], {}).get(s.get('focus', ''), (0, 0, 2.6))
-        foc = o + Vector(anc); F = Vector((0, -1, 0)); k = 1.0; hp = foc
+        foc = o + Vector(anc); F = Vector((0, -1, 0)); hp = foc
+        k = max(1.0, _places.SIZES.get((s['set'], s.get('focus', '')), 0) * 1.4 / fw)   # whole story thing in frame
     elif kind == 'two':
         pts = [h[0] for h in heads.values()]; foc = sum(pts, Vector()) / len(pts)
         spread = max((p - foc).length for p in pts) if len(pts) > 1 else 1
@@ -199,7 +202,8 @@ def solve_cam(s, tl, heads):
         for _ in range(8):
             ok, loc, nrm, idx, ob, mtx = sc.ray_cast(DG, o, dn, distance=left)
             if not ok: return None
-            if ob.name.split('_')[0] in CAST or ob.users_collection[0].name == 'FX':
+            if ob.name.split('_')[0] in CAST or ob.users_collection[0].name == 'FX' or (
+                    s.get('focus') and ob.name.split('.')[:2] == [s['set'], s['focus']]):   # the thing being filmed
                 st = (loc - o).length + 0.05; o = o + dn * st; left -= st; continue
             return (loc - tgt).length
         return None

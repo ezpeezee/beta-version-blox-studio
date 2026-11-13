@@ -29,15 +29,20 @@ The kit lives in the cloned repo (`<repo>/kit`). If you can't find it, ask the u
    in `shots.py`: walls, floor, light and the props the story needs (a story about doors gets a hall of doors; a
    bakery gets a counter, shelves and a cooler). Change colours and props even on a preset so it fits this story.
    Furniture stays out of the actors' clear zone. The intro shot is in the story's first place, never a default.
-4. **Shots.** Copy `kit/projects/test10` to `kit/projects/<name>` and rewrite its `shots.py`: the cast, then one `S(...)` per
-   caption line. Every key is in `kit/API.md`. Rules that keep it watchable:
+   **Everything the script names is on screen.** If an object isn't in the prop catalogue, build it as a `thing`
+   (`kit/API.md`, **Things**) from blocks, tubes, cones and balls, and give its line a shot (`cam='ins'`,
+   `focus='<thing>'`). Keep things Roblox-blocky and simple: 3-12 chunky parts, flat bright colours, no fine detail.
+   To add things to a ready place, use `base` (`dict(base='Street', props=[...])`).
+4. **Shots.** Copy `kit/projects/test10` to `kit/projects/<name>` and rewrite its `shots.py` from scratch for this story:
+   the cast, then one `S(...)` per caption line. test10 is a storm-cloud story: delete all of its `fx`, sets and props. Every key is in `kit/API.md`. Rules that keep it watchable:
    - Cut every 1-2.5 s. Vary the camera (`ews` to open, `mcu`/`cu` for lines, `two` for exchanges, `ws` for payoffs).
    - Each shot's `text` is the caption shown; with a voice, shots follow the word times.
    - Keep characters 2.5+ apart; `walkTo` for entrances; face the camera side (`yaw` -60..60) when they talk.
    - Act reactions with `faceAt`/`animAt`. Use `fx` (rain cloud, storm, bolt, smoke) only when the story itself has
      that moment (bad luck, a shock, a burn); never by default, and never in a story that doesn't mention it.
 5. **Look first.** `python kit/run.py kit/projects/<name>` runs shots, voice, compile and stills. Open `stills_sheet.jpg` and check
-   every shot: the place reads as the story's location, subject in frame, faces visible, nobody blocking, nothing inside a wall. `compile.log` prints `clash frames`;
+   every shot: the place reads as the story's location, subject in frame, faces visible, nobody blocking, nothing inside a wall, every named object visible and not stuck
+   in a set prop. `compile.log` prints `clash frames`;
    0 is the goal (characters overlapping). Fix `shots.py` and rerun until it is clean.
 6. **Render and finish.** `python kit/run.py kit/projects/<name> render post` -> `kit/projects/<name>/out/<name>.mp4`.
    Watch the start, middle and end, then give the user the path and a one-line caption for posting.
