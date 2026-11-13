@@ -193,6 +193,27 @@ python kit/run.py kit/projects/<name> render post   # full render and the mp4
 
 ---
 
+## 🧪 Known limits (being worked on)
+
+Blox Studio is new and gets regular updates. Right now:
+
+- **Things don't move.** Objects a story needs (a rocket, a dog, a vending machine) are built as blocky models, but they stand still. Anything that has to act is a blocky person for now.
+- **People only.** Every character is a blocky human. No animals, creatures or robots as actors yet.
+- **A small set of effects.** Rain cloud, storm, lightning, smoke and crumbs. More are coming.
+- **No automatic overlap check for added objects.** An object dropped into a ready-made place can land inside one of its props. Claude checks the stills for this, so look at `stills_sheet.jpg` too.
+- **English voices.** The built-in voice is Kokoro TTS in English. You can bring your own recording in any language.
+- **Slow on CPU.** It works without an NVIDIA GPU, just a lot slower.
+
+**⭐ Star the repo** to see new places, props, characters and fixes as they land, and run `git pull` (then copy the `skill` folder again) to get them.
+
+## 💬 Ask for something new
+
+Want a place, prop, costume, animation or effect that isn't here? **[Ask for it here](https://github.com/ezpeezee/beta-version-blox-studio/issues/new?template=request.yml)**. The requests with the most 👍 get built first, so add a 👍 to the ones you want too.
+
+Something broke? **[Tell me here](https://github.com/ezpeezee/beta-version-blox-studio/issues/new?template=bug.yml)**, or DM me on [Instagram](https://www.instagram.com/beta_versionhq/).
+
+---
+
 ## 🙌 Made something? Share it
 
 Post your short in **[Show and tell](https://github.com/ezpeezee/beta-version-blox-studio/discussions/categories/show-and-tell)**, or use the **[Share your short](https://github.com/ezpeezee/beta-version-blox-studio/issues/new?template=share-your-short.yml)** form. The best ones get featured here.

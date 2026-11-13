@@ -1,0 +1,22 @@
+name: Ask for something new
+description: A place, prop, character look, animation, effect or feature you want in the kit.
+title: "[Request] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks! Requests with the most thumbs-up get built first. Add a 👍 to requests you want too.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of thing?
+      options: [A place / set, A prop or object, A character look or costume, An animation or face, An effect, A feature or setting, Something else]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What do you want?
+      description: Describe it, and the story or short you want it for. A reference picture helps.
+    validations:
+      required: true

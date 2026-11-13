@@ -1,0 +1,17 @@
+name: Something broke
+description: An error, a wrong-looking shot, or a step that didn't work.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you typed, what you expected, and what you got. Paste the error or attach a still.
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: Your setup
+      placeholder: Windows 11, Blender 5.2, NVIDIA RTX 3060
